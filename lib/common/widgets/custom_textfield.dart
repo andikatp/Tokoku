@@ -12,7 +12,7 @@ class CustomTextField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 10),
+      padding: const EdgeInsets.only(bottom: 16),
       child: TextFormField(
         controller: controller,
         obscureText: hintText == 'Password' ? true : false,
@@ -20,6 +20,7 @@ class CustomTextField extends StatelessWidget {
             ? TextInputType.emailAddress
             : TextInputType.text,
         decoration: InputDecoration(
+          isDense: true,
           border: const OutlineInputBorder(
             borderSide: BorderSide(
               color: Colors.black38,
@@ -32,6 +33,7 @@ class CustomTextField extends StatelessWidget {
           ),
           hintText: hintText,
         ),
+        onTapOutside: (event) => FocusScope.of(context).unfocus(),
       ),
     );
   }
