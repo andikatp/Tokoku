@@ -1,18 +1,26 @@
 //import from package
 const express = require('express');
+const mongoose = require('mongoose');
 
 //import from files
 const authRouter = require("./routes/auth.js");
 const app = express();
+const DB = 'mongodb+srv://andikatp:andikatp123@cluster0.54kgvzs.mongodb.net/?retryWrites=true&w=majority';
 
 //middleware
 app.use(authRouter);
 
-//init
+//connection
+mongoose.connect(DB).then(()=>{
+    console.log(`connection successful`);
+}).catch((e)=>{
+    console.log(e);
+});
 
+//init
 const PORT = 3000;
 
-app.listen(PORT, ()=> {
+app.listen(PORT, "0.0.0.0", ()=> {
     console.log(`connected at port ${PORT}`);
 });
 
