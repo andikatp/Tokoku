@@ -1,4 +1,5 @@
 import 'package:amazon/constant/color.dart';
+import 'package:amazon/features/auth/screens/auth_screen.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -25,19 +26,10 @@ class MyApp extends StatelessWidget {
           ),
         ),
       ),
-      home: Scaffold(
-        appBar: AppBar(
-          title: const Text('Amazon Clone'),
-        ),
-        body: Column(
-          children: [
-            const Center(
-              child: Text('Test'),
-            ),
-            ElevatedButton(onPressed: () {}, child: const Text('as'))
-          ],
-        ),
-      ),
+      initialRoute: AuthScreen.routeName,
+      routes: {
+        AuthScreen.routeName: (context) => const AuthScreen(),
+      },
     );
   }
 }
