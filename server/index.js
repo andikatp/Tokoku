@@ -2,6 +2,7 @@
 const express = require('express');
 const mongoose = require('mongoose');
 
+
 //import from files
 const authRouter = require("./routes/auth.js");
 const app = express();
@@ -24,4 +25,3 @@ const PORT = 3000;
 app.listen(PORT, "0.0.0.0", ()=> {
     console.log(`connected at port ${PORT}`);
 });
-

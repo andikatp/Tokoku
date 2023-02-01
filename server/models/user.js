@@ -21,7 +21,7 @@ const userSchema = mongoose.Schema({
         required: true,
         type: String,
         validator: (value) => {
-                       return value.length > 6;
+                       return value.length > 5;
         },
         message: 'Please make a longer password',
     },
