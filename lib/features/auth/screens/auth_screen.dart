@@ -100,8 +100,7 @@ class _AuthScreenState extends State<AuthScreen> {
                     'Create an Account', Auth.signUp, _auth == Auth.signUp),
                 if (_auth == Auth.signUp)
                   authContainer(_auth == Auth.signUp, () {
-                    final form = _signInFormKey.currentState;
-                    if (form!.validate()) {
+                    if (_signUpFormKey.currentState!.validate()) {
                       signUpUser();
                     }
                   }),
