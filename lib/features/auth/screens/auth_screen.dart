@@ -1,6 +1,7 @@
 import 'package:amazon/common/widgets/custom_elevated_button.dart';
 import 'package:amazon/common/widgets/custom_textfield.dart';
 import 'package:amazon/constant/color.dart';
+import 'package:amazon/services/auth_service.dart';
 import 'package:flutter/material.dart';
 
 class AuthScreen extends StatefulWidget {
@@ -18,11 +19,12 @@ enum Auth {
 
 class _AuthScreenState extends State<AuthScreen> {
   Auth _auth = Auth.signUp;
-  final GlobalKey _signUpFormKey = GlobalKey<FormState>();
-  final GlobalKey _signInFormKey = GlobalKey<FormState>();
+  final GlobalKey<FormState> _signUpFormKey = GlobalKey();
+  final GlobalKey<FormState> _signInFormKey = GlobalKey();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
+  final AuthService authService = AuthService();
 
   Widget radioAuth(String title, Auth auth, bool color) {
     return RadioListTile(
@@ -35,7 +37,7 @@ class _AuthScreenState extends State<AuthScreen> {
     );
   }
 
-  Widget authContainer(bool signUp) {
+  Widget authContainer(bool signUp, VoidCallback onPressed) {
     return Container(
       padding: const EdgeInsets.all(10),
       color: GlobalVariable.backgroundColor,
@@ -56,7 +58,7 @@ class _AuthScreenState extends State<AuthScreen> {
               controller: _passwordController,
               hintText: 'Password',
             ),
-            CustomButton(text: 'Sign Up', onPressed: () {}),
+            CustomButton(text: 'Sign Up', onPressed: onPressed),
           ],
         ),
       ),
@@ -69,6 +71,14 @@ class _AuthScreenState extends State<AuthScreen> {
     _nameController.dispose();
     _passwordController.dispose();
     super.dispose();
+  }
+
+  void signUpUser() {
+    authService.signUpUser(
+        context: context,
+        name: _nameController.text,
+        email: _emailController.text,
+        password: _passwordController.text);
   }
 
   @override
@@ -88,9 +98,16 @@ class _AuthScreenState extends State<AuthScreen> {
                 ),
                 radioAuth(
                     'Create an Account', Auth.signUp, _auth == Auth.signUp),
-                if (_auth == Auth.signUp) authContainer(_auth == Auth.signUp),
+                if (_auth == Auth.signUp)
+                  authContainer(_auth == Auth.signUp, () {
+                    final form = _signInFormKey.currentState;
+                    if (form!.validate()) {
+                      signUpUser();
+                    }
+                  }),
                 radioAuth('Sign In', Auth.signIn, _auth == Auth.signIn),
-                if (_auth == Auth.signIn) authContainer(_auth == Auth.signUp),
+                if (_auth == Auth.signIn)
+                  authContainer(_auth == Auth.signUp, () {}),
               ],
             ),
           ),

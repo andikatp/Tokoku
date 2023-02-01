@@ -34,6 +34,12 @@ class CustomTextField extends StatelessWidget {
           hintText: hintText,
         ),
         onTapOutside: (event) => FocusScope.of(context).unfocus(),
+        validator: (value) {
+          if (value == null || value.isEmpty) {
+            return 'Please enter $hintText';
+          }
+          return null;
+        },
       ),
     );
   }
