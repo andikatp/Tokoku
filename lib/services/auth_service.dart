@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:amazon/constant/color.dart';
 import 'package:amazon/constant/error_handling.dart';
 import 'package:amazon/constant/utils.dart';
@@ -34,6 +36,27 @@ class AuthService {
           onSuccess: () {
             showSnackbar(context, 'Account has been created');
           });
+    } catch (e) {
+      showSnackbar(context, e.toString());
+    }
+  }
+
+  //sign in user
+  Future<void> signInUser(
+      {required BuildContext context,
+      required String email,
+      required String password}) async {
+    try {
+      http.Response response = await http.post(Uri.parse('$uri/api/signin'),
+          body: jsonEncode({
+            'email': email,
+            'password': password,
+          }),
+          headers: <String, String>{
+            'Content-type': 'application/json; charset=UTF-8'
+          });
+      print(response.body);
+      httpErrorHandler(response: response, context: context, onSuccess: () {});
     } catch (e) {
       showSnackbar(context, e.toString());
     }

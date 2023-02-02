@@ -21,8 +21,8 @@ class _AuthScreenState extends State<AuthScreen> {
   Auth _auth = Auth.signUp;
   final GlobalKey<FormState> _signUpFormKey = GlobalKey();
   final GlobalKey<FormState> _signInFormKey = GlobalKey();
-  final TextEditingController _emailController = TextEditingController();
   final TextEditingController _nameController = TextEditingController();
+  final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   final AuthService authService = AuthService();
 
@@ -58,19 +58,12 @@ class _AuthScreenState extends State<AuthScreen> {
               controller: _passwordController,
               hintText: 'Password',
             ),
-            CustomButton(text: 'Sign Up', onPressed: onPressed),
+            CustomButton(
+                text: signUp ? 'Sign Up' : 'Sign In', onPressed: onPressed),
           ],
         ),
       ),
     );
-  }
-
-  @override
-  void dispose() {
-    _emailController.dispose();
-    _nameController.dispose();
-    _passwordController.dispose();
-    super.dispose();
   }
 
   void signUpUser() {
@@ -79,6 +72,21 @@ class _AuthScreenState extends State<AuthScreen> {
         name: _nameController.text,
         email: _emailController.text,
         password: _passwordController.text);
+  }
+
+  void signInUser() {
+    authService.signInUser(
+        context: context,
+        email: _emailController.text,
+        password: _passwordController.text);
+  }
+
+  @override
+  void dispose() {
+    _emailController.dispose();
+    _nameController.dispose();
+    _passwordController.dispose();
+    super.dispose();
   }
 
   @override
@@ -106,7 +114,11 @@ class _AuthScreenState extends State<AuthScreen> {
                   }),
                 radioAuth('Sign In', Auth.signIn, _auth == Auth.signIn),
                 if (_auth == Auth.signIn)
-                  authContainer(_auth == Auth.signUp, () {}),
+                  authContainer(_auth == Auth.signUp, () {
+                    if (_signInFormKey.currentState!.validate()) {
+                      signInUser();
+                    }
+                  }),
               ],
             ),
           ),
