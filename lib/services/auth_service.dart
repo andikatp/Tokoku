@@ -33,6 +33,7 @@ class AuthService {
           headers: <String, String>{
             'Content-type': 'application/json; charset=UTF-8'
           });
+      // ignore: use_build_context_synchronously
       httpErrorHandler(
           response: response,
           context: context,
@@ -58,18 +59,55 @@ class AuthService {
           headers: <String, String>{
             'Content-type': 'application/json; charset=UTF-8'
           });
-      print(response.body);
+      // ignore: use_build_context_synchronously
       httpErrorHandler(
           response: response,
           context: context,
           onSuccess: () async {
             final prefs = await SharedPreferences.getInstance();
+            // ignore: use_build_context_synchronously
             Provider.of<UserProvider>(context, listen: false)
                 .setUser(response.body);
             await prefs.setString(
                 'x-auth-token', jsonDecode(response.body)['token']);
+            // ignore: use_build_context_synchronously
             Navigator.pushNamed(context, HomeScreen.routeName);
           });
+    } catch (e) {
+      showSnackbar(context, e.toString());
+    }
+  }
+
+  //get user data
+  Future<void> getUserData(
+    BuildContext context,
+  ) async {
+    try {
+      final SharedPreferences prefs = await SharedPreferences.getInstance();
+      String? token = prefs.getString('x-auht-token');
+
+      if (token == null) {
+        prefs.setString('x-auth=token', '');
+      }
+      var tokenResponse = await http.post(Uri.parse('$uri/tokenIsValid'),
+          headers: <String, String>{
+            'Content-type': 'application/json; charset=UTF-8',
+            'x-auth-token': token!
+          });
+
+      var response = jsonDecode(tokenResponse.body);
+
+      if (response == true) {
+        //get user Data
+        http.Response userResponse = await http.get(Uri.parse('$uri/'),
+            headers: <String, String>{
+              'Content-type': 'application/json; charset=UTF-8',
+              'x-auth-token': token
+            });
+
+        var userProvider = Provider.of<UserProvider>(context, listen: false)
+            .setUser(userResponse.body);
+      }
     } catch (e) {
       showSnackbar(context, e.toString());
     }
