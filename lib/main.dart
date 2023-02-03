@@ -1,4 +1,4 @@
-import 'package:amazon/constant/color.dart';
+import 'package:amazon/constant/global_variable.dart';
 import 'package:amazon/features/auth/screens/auth_screen.dart';
 import 'package:amazon/features/home/screens/home_screen.dart';
 import 'package:amazon/providers/user_provider.dart';

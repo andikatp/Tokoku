@@ -1,12 +1,11 @@
 import 'dart:convert';
-
 import 'package:amazon/constant/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
 void httpErrorHandler({
   required http.Response response,
-  required BuildContext context,
+  required ScaffoldMessengerState messenger,
   required VoidCallback onSuccess,
 }) {
   switch (response.statusCode) {
@@ -14,12 +13,12 @@ void httpErrorHandler({
       onSuccess();
       break;
     case 400:
-      showSnackbar(context, jsonDecode(response.body)['msg']);
+      showSnackbar(messenger, jsonDecode(response.body)['msg']);
       break;
     case 500:
-      showSnackbar(context, jsonDecode(response.body)['error']);
+      showSnackbar(messenger, jsonDecode(response.body)['error']);
       break;
     default:
-      showSnackbar(context, response.body);
+      showSnackbar(messenger, response.body);
   }
 }

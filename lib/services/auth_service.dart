@@ -1,5 +1,5 @@
 import 'dart:convert';
-import 'package:amazon/constant/color.dart';
+import 'package:amazon/constant/global_variable.dart';
 import 'package:amazon/constant/error_handling.dart';
 import 'package:amazon/constant/utils.dart';
 import 'package:amazon/features/home/screens/home_screen.dart';
@@ -13,7 +13,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 class AuthService {
   //sign up user
   Future<void> signUpUser({
-    required BuildContext context,
+    required ScaffoldMessengerState messenger,
     required String name,
     required String email,
     required String password,
@@ -33,21 +33,22 @@ class AuthService {
           headers: <String, String>{
             'Content-type': 'application/json; charset=UTF-8'
           });
-      // ignore: use_build_context_synchronously
+
       httpErrorHandler(
           response: response,
-          context: context,
+          messenger: messenger,
           onSuccess: () {
-            showSnackbar(context, 'Account has been created');
+            showSnackbar(messenger, 'Account has been created');
           });
     } catch (e) {
-      showSnackbar(context, e.toString());
+      showSnackbar(messenger, e.toString());
     }
   }
 
   //sign in user
   Future<void> signInUser(
       {required BuildContext context,
+      required ScaffoldMessengerState messenger,
       required String email,
       required String password}) async {
     try {
@@ -59,22 +60,22 @@ class AuthService {
           headers: <String, String>{
             'Content-type': 'application/json; charset=UTF-8'
           });
-      // ignore: use_build_context_synchronously
       httpErrorHandler(
           response: response,
-          context: context,
+          messenger: messenger,
           onSuccess: () async {
+            final prov = Provider.of<UserProvider>(context, listen: false);
+            final pushNamed =
+                Navigator.pushNamed(context, HomeScreen.routeName);
             final prefs = await SharedPreferences.getInstance();
-            // ignore: use_build_context_synchronously
-            Provider.of<UserProvider>(context, listen: false)
-                .setUser(response.body);
+
+            prov.setUser(response.body);
             await prefs.setString(
                 'x-auth-token', jsonDecode(response.body)['token']);
-            // ignore: use_build_context_synchronously
-            Navigator.pushNamed(context, HomeScreen.routeName);
+            pushNamed;
           });
     } catch (e) {
-      showSnackbar(context, e.toString());
+      showSnackbar(messenger, e.toString());
     }
   }
 
@@ -83,6 +84,7 @@ class AuthService {
     BuildContext context,
   ) async {
     try {
+      var prov = Provider.of<UserProvider>(context, listen: false);
       final SharedPreferences prefs = await SharedPreferences.getInstance();
       String? token = prefs.getString('x-auht-token');
 
@@ -105,11 +107,10 @@ class AuthService {
               'x-auth-token': token
             });
 
-        var userProvider = Provider.of<UserProvider>(context, listen: false)
-            .setUser(userResponse.body);
+        var prof = prov.setUser(userResponse.body);
       }
     } catch (e) {
-      showSnackbar(context, e.toString());
+      debugPrint(e.toString());
     }
   }
 }

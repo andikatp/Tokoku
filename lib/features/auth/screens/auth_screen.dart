@@ -1,6 +1,6 @@
 import 'package:amazon/common/widgets/custom_elevated_button.dart';
 import 'package:amazon/common/widgets/custom_textfield.dart';
-import 'package:amazon/constant/color.dart';
+import 'package:amazon/constant/global_variable.dart';
 import 'package:amazon/services/auth_service.dart';
 import 'package:flutter/material.dart';
 
@@ -68,7 +68,7 @@ class _AuthScreenState extends State<AuthScreen> {
 
   void signUpUser() {
     authService.signUpUser(
-        context: context,
+        messenger: ScaffoldMessenger.of(context),
         name: _nameController.text,
         email: _emailController.text,
         password: _passwordController.text);
@@ -76,9 +76,11 @@ class _AuthScreenState extends State<AuthScreen> {
 
   void signInUser() {
     authService.signInUser(
-        context: context,
-        email: _emailController.text,
-        password: _passwordController.text);
+      context: context,
+      email: _emailController.text,
+      password: _passwordController.text,
+      messenger: ScaffoldMessenger.of(context),
+    );
   }
 
   @override
