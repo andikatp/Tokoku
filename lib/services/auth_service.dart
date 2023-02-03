@@ -84,30 +84,34 @@ class AuthService {
     BuildContext context,
   ) async {
     try {
-      var prov = Provider.of<UserProvider>(context, listen: false);
+      final prov = Provider.of<UserProvider>(context, listen: false);
       final SharedPreferences prefs = await SharedPreferences.getInstance();
-      String? token = prefs.getString('x-auht-token');
+      String? token = prefs.getString('x-auth-token');
 
       if (token == null) {
-        prefs.setString('x-auth=token', '');
+        prefs.setString('x-auth-token', '');
       }
-      var tokenResponse = await http.post(Uri.parse('$uri/tokenIsValid'),
-          headers: <String, String>{
-            'Content-type': 'application/json; charset=UTF-8',
-            'x-auth-token': token!
-          });
 
-      var response = jsonDecode(tokenResponse.body);
+      var tokenRes = await http.post(
+        Uri.parse('$uri/tokenIsValid'),
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+          'x-auth-token': token!
+        },
+      );
+
+      var response = jsonDecode(tokenRes.body);
 
       if (response == true) {
-        //get user Data
-        http.Response userResponse = await http.get(Uri.parse('$uri/'),
-            headers: <String, String>{
-              'Content-type': 'application/json; charset=UTF-8',
-              'x-auth-token': token
-            });
+        http.Response userResponse = await http.get(
+          Uri.parse('$uri/'),
+          headers: <String, String>{
+            'Content-Type': 'application/json; charset=UTF-8',
+            'x-auth-token': token
+          },
+        );
 
-        var prof = prov.setUser(userResponse.body);
+        prov.setUser(userResponse.body);
       }
     } catch (e) {
       debugPrint(e.toString());

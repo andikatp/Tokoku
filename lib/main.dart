@@ -46,7 +46,7 @@ class _MyAppState extends State<MyApp> {
           ),
         ),
       ),
-      initialRoute: Provider.of<UserProvider>(context).user.token.isNotEmpty
+      initialRoute: Provider.of<UserProvider>(context).user.token.isEmpty
           ? HomeScreen.routeName
           : AuthScreen.routeName,
       routes: {
