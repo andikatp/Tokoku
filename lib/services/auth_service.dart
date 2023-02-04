@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:amazon/common/widgets/bottom_bar.dart';
 import 'package:amazon/constant/global_variable.dart';
 import 'package:amazon/constant/error_handling.dart';
 import 'package:amazon/constant/utils.dart';
@@ -66,7 +67,7 @@ class AuthService {
           onSuccess: () async {
             final prov = Provider.of<UserProvider>(context, listen: false);
             final pushNamed =
-                Navigator.pushNamed(context, HomeScreen.routeName);
+                Navigator.pushNamed(context, BottomBar.routeName);
             final prefs = await SharedPreferences.getInstance();
 
             prov.setUser(response.body);

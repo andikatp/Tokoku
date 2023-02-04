@@ -1,3 +1,4 @@
+import 'package:amazon/common/widgets/bottom_bar.dart';
 import 'package:amazon/constant/global_variable.dart';
 import 'package:amazon/features/auth/screens/auth_screen.dart';
 import 'package:amazon/features/home/screens/home_screen.dart';
@@ -27,8 +28,8 @@ class _MyAppState extends State<MyApp> {
 
   @override
   void initState() {
-    super.initState();
     authService.getUserData(context);
+    super.initState();
   }
 
   @override
@@ -47,10 +48,11 @@ class _MyAppState extends State<MyApp> {
         ),
       ),
       initialRoute: Provider.of<UserProvider>(context).user.token.isEmpty
-          ? HomeScreen.routeName
+          ? BottomBar.routeName
           : AuthScreen.routeName,
       routes: {
         AuthScreen.routeName: (context) => const AuthScreen(),
+        BottomBar.routeName: (context) => const BottomBar(),
         HomeScreen.routeName: (context) => const HomeScreen(),
       },
     );
