@@ -3,6 +3,8 @@ import 'package:amazon/features/home/screens/home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:badges/badges.dart' as badges;
 
+import '../../features/account/screens/account_screen.dart';
+
 class BottomBar extends StatefulWidget {
   static const routeName = '/bottom-bar';
   const BottomBar({super.key});
@@ -17,9 +19,7 @@ class _BottomBarState extends State<BottomBar> {
   final double _bottomBarBorderWidth = 5;
   final List<Widget> _pages = [
     const HomeScreen(),
-    const Center(
-      child: Text('Account Page'),
-    ),
+    const AccountScreen(),
     const Center(
       child: Text('Cart Page'),
     )
