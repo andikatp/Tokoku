@@ -1,5 +1,6 @@
 import 'package:amazon/features/home/widgets/address_box.dart';
 import 'package:amazon/features/home/widgets/carousel_image.dart';
+import 'package:amazon/features/home/widgets/deal_ofthe_day.dart';
 import 'package:amazon/features/home/widgets/top_categories.dart';
 import 'package:flutter/material.dart';
 
@@ -89,13 +90,16 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
         ),
       ),
-      body: Column(
-        children: const [
-          AddressBox(),
-          SizedBox(height: 10),
-          TopCategories(),
-          CarouselImages(),
-        ],
+      body: SingleChildScrollView(
+        child: Column(
+          children: const [
+            AddressBox(),
+            SizedBox(height: 10),
+            TopCategories(),
+            CarouselImages(),
+            DealOfTheDay(),
+          ],
+        ),
       ),
     );
   }
