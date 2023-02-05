@@ -1,4 +1,6 @@
 import 'package:amazon/constant/global_variable.dart';
+import 'package:amazon/features/account/widgets/below_app_bar.dart';
+import 'package:amazon/features/account/widgets/top_buttons.dart';
 import 'package:flutter/material.dart';
 
 class AccountScreen extends StatelessWidget {
@@ -10,6 +12,7 @@ class AccountScreen extends StatelessWidget {
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(50),
         child: AppBar(
+          elevation: 0,
           flexibleSpace: Container(
             decoration: const BoxDecoration(
               gradient: GlobalVariable.appBarGradient,
@@ -23,6 +26,7 @@ class AccountScreen extends StatelessWidget {
                   'assets/images/toko.png',
                   width: 120,
                   height: 45,
+                  color: Colors.black,
                 ),
               ),
               const Spacer(),
@@ -42,6 +46,11 @@ class AccountScreen extends StatelessWidget {
           ),
         ),
       ),
+      body: Column(children: const [
+        BelowAppBar(),
+        SizedBox(height: 10),
+        TopButtons(),
+      ]),
     );
   }
 }

@@ -5,9 +5,12 @@ import 'package:amazon/features/home/screens/home_screen.dart';
 import 'package:amazon/providers/user_provider.dart';
 import 'package:amazon/services/auth_service.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 
 void main() {
+  SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual,
+      overlays: [SystemUiOverlay.bottom]);
   runApp(MultiProvider(providers: [
     ChangeNotifierProvider(
       create: (context) => UserProvider(),
@@ -28,15 +31,15 @@ class _MyAppState extends State<MyApp> {
 
   @override
   void initState() {
-    authService.getUserData(context);
     super.initState();
+    authService.getUserData(context);
   }
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Flutter Demo',
+      title: 'Store App',
       theme: ThemeData(
         colorScheme:
             const ColorScheme.light(primary: GlobalVariable.secondaryColor),
@@ -47,7 +50,7 @@ class _MyAppState extends State<MyApp> {
           ),
         ),
       ),
-      initialRoute: Provider.of<UserProvider>(context).user.token.isEmpty
+      initialRoute: Provider.of<UserProvider>(context).user.token == ''
           ? BottomBar.routeName
           : AuthScreen.routeName,
       routes: {

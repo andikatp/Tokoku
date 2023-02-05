@@ -3,7 +3,6 @@ import 'package:amazon/common/widgets/bottom_bar.dart';
 import 'package:amazon/constant/global_variable.dart';
 import 'package:amazon/constant/error_handling.dart';
 import 'package:amazon/constant/utils.dart';
-import 'package:amazon/features/home/screens/home_screen.dart';
 import 'package:amazon/models/user.dart';
 import 'package:amazon/providers/user_provider.dart';
 import 'package:flutter/material.dart';
@@ -66,8 +65,7 @@ class AuthService {
           messenger: messenger,
           onSuccess: () async {
             final prov = Provider.of<UserProvider>(context, listen: false);
-            final pushNamed =
-                Navigator.pushNamed(context, BottomBar.routeName);
+            final pushNamed = Navigator.pushNamed(context, BottomBar.routeName);
             final prefs = await SharedPreferences.getInstance();
 
             prov.setUser(response.body);
