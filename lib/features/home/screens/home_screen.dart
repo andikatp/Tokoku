@@ -1,3 +1,4 @@
+import 'package:amazon/features/home/widgets/address_box.dart';
 import 'package:amazon/providers/user_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -89,8 +90,10 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
         ),
       ),
-      body: Center(
-        child: Text(user.toJson()),
+      body: Column(
+        children: const [
+          AddressBox(),
+        ],
       ),
     );
   }
