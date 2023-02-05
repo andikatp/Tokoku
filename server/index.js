@@ -2,6 +2,7 @@
 const express = require('express');
 const mongoose = require('mongoose');
 
+mongoose.set('strictQuery', true);
 
 //import from files
 const authRouter = require("./routes/auth.js");
@@ -19,9 +20,12 @@ mongoose.connect(DB).then(()=>{
     console.log(e);
 });
 
+
+
 //init
 const PORT = 3000;
 
 app.listen(PORT, "0.0.0.0", ()=> {
     console.log(`connected at port ${PORT}`);
 });
+
