@@ -1,6 +1,7 @@
 import 'package:amazon/constant/global_variable.dart';
 import 'package:amazon/providers/user_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 
 class BelowAppBar extends StatelessWidget {
@@ -13,23 +14,26 @@ class BelowAppBar extends StatelessWidget {
       decoration: const BoxDecoration(
         gradient: GlobalVariable.appBarGradient,
       ),
-      padding: const EdgeInsets.only(left: 10, right: 10, bottom: 10),
+      padding: EdgeInsets.all(10.h).copyWith(top: 0.h),
+      margin: EdgeInsets.only(bottom: 10.h),
       child: Row(
         children: [
           RichText(
             text: TextSpan(
-                text: 'Hello ',
-                style: const TextStyle(
-                  fontSize: 22,
-                  color: Colors.black,
+              text: 'Hello ',
+              style: TextStyle(
+                fontSize: 22.sp,
+                color: Colors.black,
+              ),
+              children: [
+                TextSpan(
+                  text: user.name,
+                  style: const TextStyle(
+                    fontWeight: FontWeight.w600,
+                  ),
                 ),
-                children: [
-                  TextSpan(
-                      text: user.name,
-                      style: const TextStyle(
-                        fontWeight: FontWeight.w600,
-                      ))
-                ]),
+              ],
+            ),
           ),
         ],
       ),

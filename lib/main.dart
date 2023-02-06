@@ -6,12 +6,16 @@ import 'package:amazon/providers/user_provider.dart';
 import 'package:amazon/services/auth_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
+  SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual,
+      overlays: [SystemUiOverlay.top]);
   SystemChrome.setSystemUIOverlayStyle(
-      const SystemUiOverlayStyle(statusBarColor: Colors.transparent));
+    const SystemUiOverlayStyle(statusBarColor: Colors.transparent),
+  );
   runApp(MultiProvider(providers: [
     ChangeNotifierProvider(
       create: (context) => UserProvider(),
@@ -38,27 +42,30 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'Store App',
-      theme: ThemeData(
-        colorScheme:
-            const ColorScheme.light(primary: GlobalVariable.secondaryColor),
-        scaffoldBackgroundColor: GlobalVariable.backgroundColor,
-        appBarTheme: const AppBarTheme(
-          iconTheme: IconThemeData(
-            color: Colors.black,
+    return ScreenUtilInit(
+      minTextAdapt: true,
+      builder: (context, child) => MaterialApp(
+        debugShowCheckedModeBanner: false,
+        title: 'Store App',
+        theme: ThemeData(
+          colorScheme:
+              const ColorScheme.light(primary: GlobalVariable.secondaryColor),
+          scaffoldBackgroundColor: GlobalVariable.backgroundColor,
+          appBarTheme: const AppBarTheme(
+            iconTheme: IconThemeData(
+              color: Colors.black,
+            ),
           ),
         ),
+        initialRoute: Provider.of<UserProvider>(context).user.token == ''
+            ? BottomBar.routeName
+            : AuthScreen.routeName,
+        routes: {
+          AuthScreen.routeName: (context) => const AuthScreen(),
+          BottomBar.routeName: (context) => const BottomBar(),
+          HomeScreen.routeName: (context) => const HomeScreen(),
+        },
       ),
-      initialRoute: Provider.of<UserProvider>(context).user.token == ''
-          ? BottomBar.routeName
-          : AuthScreen.routeName,
-      routes: {
-        AuthScreen.routeName: (context) => const AuthScreen(),
-        BottomBar.routeName: (context) => const BottomBar(),
-        HomeScreen.routeName: (context) => const HomeScreen(),
-      },
     );
   }
 }

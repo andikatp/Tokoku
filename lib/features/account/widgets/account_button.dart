@@ -12,7 +12,7 @@ class AccountButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Expanded (
+    return Expanded(
       child: Container(
         margin: const EdgeInsets.symmetric(horizontal: 10),
         height: 40,
@@ -23,11 +23,12 @@ class AccountButton extends StatelessWidget {
         ),
         child: OutlinedButton(
           style: ButtonStyle(
-            shape: const MaterialStatePropertyAll(RoundedRectangleBorder(
-                borderRadius: BorderRadius.all(Radius.circular(50)))),
-            backgroundColor:
-                MaterialStatePropertyAll(Colors.black12.withOpacity(0.03)),
-          ),
+              shape: const MaterialStatePropertyAll(RoundedRectangleBorder(
+                  borderRadius: BorderRadius.all(Radius.circular(50)))),
+              backgroundColor:
+                  MaterialStatePropertyAll(Colors.black12.withOpacity(0.03)),
+              overlayColor: const MaterialStatePropertyAll(
+                  Color.fromARGB(255, 144, 226, 221))),
           onPressed: function,
           child: Text(
             text,

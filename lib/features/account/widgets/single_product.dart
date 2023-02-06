@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class SingleProduct extends StatelessWidget {
   final String img;
@@ -10,14 +11,13 @@ class SingleProduct extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.only(right: 15),
-      padding: const EdgeInsets.all(5),
+      margin: const EdgeInsets.only(right: 15).r,
+      padding: const EdgeInsets.all(5).w,
       decoration:
-          BoxDecoration(border: Border.all(width: 2, color: Colors.grey)),
+          BoxDecoration(border: Border.all(width: 2.r, color: Colors.grey)),
       child: Image.network(
         img,
-        height: 50,
-        width: 150,
+        width: 150.w,
         fit: BoxFit.cover,
       ),
     );
