@@ -109,7 +109,6 @@ class AuthService {
             'x-auth-token': token
           },
         );
-        print(userResponse.body);
         prov.setUser(userResponse.body);
       }
     } catch (e) {
