@@ -12,6 +12,7 @@ class DealOfTheDay extends StatelessWidget {
           padding: const EdgeInsets.only(
             left: 10,
             top: 15,
+            bottom: 15,
           ),
           child: const Text(
             'Deal of The Day',
@@ -23,10 +24,12 @@ class DealOfTheDay extends StatelessWidget {
         Image.network(
           'https://images.unsplash.com/photo-1675453019509-2d2368e36a38?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80',
           height: 235,
-          fit: BoxFit.fitHeight,
+          width: double.infinity,
+          fit: BoxFit.cover,
         ),
         Container(
           padding: const EdgeInsets.only(
+            top: 10,
             left: 15,
           ),
           alignment: Alignment.topLeft,
@@ -84,7 +87,7 @@ class DealOfTheDay extends StatelessWidget {
           ),
         ),
         Container(
-          padding: const EdgeInsets.symmetric(vertical: 15).copyWith(left: 15),
+          padding: const EdgeInsets.all(15).copyWith(top: 0),
           alignment: Alignment.topLeft,
           child: Text(
             'See All Deals',

@@ -7,15 +7,16 @@ class TopCategories extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 60,
+      height: 68,
       child: ListView.builder(
         itemCount: GlobalVariable.categoryImages.length,
         scrollDirection: Axis.horizontal,
-        itemExtent: 83,
+        itemExtent: 82,
         itemBuilder: (context, index) => Column(
           children: [
             Container(
               padding: const EdgeInsets.symmetric(horizontal: 10),
+              margin: const EdgeInsets.only(bottom: 5),
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(50),
                 child: Image.asset(

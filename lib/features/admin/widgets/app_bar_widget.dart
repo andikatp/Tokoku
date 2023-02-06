@@ -10,7 +10,6 @@ class AppBarWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      titleSpacing: 0,
       elevation: 0,
       flexibleSpace: Container(
         decoration: const BoxDecoration(
@@ -29,21 +28,13 @@ class AppBarWidget extends StatelessWidget {
               color: Colors.black,
             ),
           ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: [
-              IconButton(
-                icon: const Icon(Icons.notifications_outlined),
-                onPressed: () {},
-                splashRadius: 20.h,
-              ),
-              IconButton(
-                icon: const Icon(Icons.search),
-                onPressed: () {},
-                splashRadius: 20.h,
-              ),
-            ],
-          ),
+          const Text(
+            'Admin',
+            style: TextStyle(
+              fontWeight: FontWeight.bold,
+              color: Colors.black,
+            ),
+          )
         ],
       ),
     );

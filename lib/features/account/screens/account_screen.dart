@@ -3,7 +3,7 @@ import 'package:amazon/features/account/widgets/orders.dart';
 import 'package:amazon/features/account/widgets/top_buttons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import '../widgets/app_bar.dart';
+import '../widgets/app_bar_widget.dart';
 
 class AccountScreen extends StatelessWidget {
   const AccountScreen({super.key});
@@ -12,7 +12,7 @@ class AccountScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: PreferredSize(
-        preferredSize: Size.fromHeight(50.h),
+        preferredSize: Size.fromHeight(60.h),
         child: const AppBarWidget(),
       ),
       body: Column(
