@@ -8,7 +8,6 @@ class Product {
   final double price;
   final int quantity;
   final String? id;
-  final String? userId;
 
   Product({
     required this.name,
@@ -18,25 +17,21 @@ class Product {
     required this.price,
     required this.quantity,
     this.id,
-    this.userId,
   });
 
   Map<String, dynamic> toMap() {
     final result = <String, dynamic>{};
-  
+
     result.addAll({'name': name});
     result.addAll({'description': description});
     result.addAll({'imageUrl': imageUrl});
     result.addAll({'category': category});
     result.addAll({'price': price});
     result.addAll({'quantity': quantity});
-    if(id != null){
-      result.addAll({'_id': id});
+    if (id != null) {
+      result.addAll({'id': id});
     }
-    if(userId != null){
-      result.addAll({'userId': userId});
-    }
-  
+
     return result;
   }
 
@@ -48,12 +43,12 @@ class Product {
       category: map['category'] ?? '',
       price: map['price']?.toDouble() ?? 0.0,
       quantity: map['quantity']?.toInt() ?? 0,
-      id: map['_id'],
-      userId: map['userId'],
+      id: map['id'],
     );
   }
 
   String toJson() => json.encode(toMap());
 
-  factory Product.fromJson(String source) => Product.fromMap(json.decode(source));
+  factory Product.fromJson(String source) =>
+      Product.fromMap(json.decode(source));
 }
