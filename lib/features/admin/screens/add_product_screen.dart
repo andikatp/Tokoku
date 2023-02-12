@@ -140,8 +140,8 @@ class _AddProductScreenState extends State<AddProductScreen> {
                   controller: _description,
                   hintText: 'Description',
                   maxLines: 7),
-              CustomTextField(controller: _price, hintText: 'Price Name'),
-              CustomTextField(controller: _quantity, hintText: 'Quantity Name'),
+              CustomTextField(controller: _price, hintText: 'Price'),
+              CustomTextField(controller: _quantity, hintText: 'Quantity'),
               SizedBox(
                 width: double.infinity,
                 child: DropdownButton(

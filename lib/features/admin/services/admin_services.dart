@@ -41,7 +41,7 @@ class AdminServices {
           quantity: quantity);
 
       http.Response res = await http.post(
-        Uri.parse('$uri/admin/add-prodcut'),
+        Uri.parse('$uri/admin/add-product'),
         headers: {
           'Content-Type': 'application/json; charset=UTF-8',
           'x-auth-token': provider.user.token,

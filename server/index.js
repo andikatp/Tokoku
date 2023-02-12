@@ -1,6 +1,7 @@
 //import from package
 const express = require('express');
 const mongoose = require('mongoose');
+const adminRouter = require('./routes/admin.js');
 
 mongoose.set('strictQuery', true);
 
@@ -11,6 +12,7 @@ const DB = 'mongodb+srv://andikatp:andikatp123@cluster0.54kgvzs.mongodb.net/?ret
 
 //middleware
 app.use(express.json());
+app.use(adminRouter);
 app.use(authRouter);
 
 //connection
