@@ -4,6 +4,7 @@ import 'package:amazon/common/widgets/custom_elevated_button.dart';
 import 'package:amazon/common/widgets/custom_textfield.dart';
 import 'package:amazon/constant/global_variable.dart';
 import 'package:amazon/constant/utils.dart';
+import 'package:amazon/features/admin/services/admin_services.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
@@ -20,6 +21,8 @@ class _AddProductScreenState extends State<AddProductScreen> {
   final TextEditingController _description = TextEditingController();
   final TextEditingController _price = TextEditingController();
   final TextEditingController _quantity = TextEditingController();
+  final AdminServices adminServices = AdminServices();
+  final _addProductFormKey = GlobalKey<FormState>();
   String _category = 'Mobiles';
   List<File> _images = [];
 
@@ -45,6 +48,20 @@ class _AddProductScreenState extends State<AddProductScreen> {
     setState(() => _images = res);
   }
 
+  void _sellProduct() async {
+    if (_addProductFormKey.currentState!.validate() && _images.isNotEmpty) {
+      adminServices.sellProduct(
+          ctx: context,
+          msg: ScaffoldMessenger.of(context),
+          name: _productName.text,
+          description: _description.text,
+          price: double.parse(_price.text),
+          quantity: int.parse(_quantity.text),
+          category: _category,
+          images: _images);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -63,6 +80,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
         physics: const BouncingScrollPhysics(),
         padding: const EdgeInsets.all(15),
         child: Form(
+          key: _addProductFormKey,
           child: Column(
             children: [
               Padding(
@@ -138,7 +156,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
               ),
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 10),
-                child: CustomButton(text: 'Sell', onPressed: () {}),
+                child: CustomButton(text: 'Sell', onPressed: _sellProduct),
               )
             ],
           ),
