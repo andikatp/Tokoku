@@ -1,4 +1,4 @@
-# amazon
+# TOKOKU
 
 A new Flutter project.
 
